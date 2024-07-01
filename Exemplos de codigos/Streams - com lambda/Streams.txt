@@ -1,0 +1,4 @@
+Caso tenha duvidas voce pode procurar mais combinações para streams, seja ela operações intermediarias ou operações finais.
+
+
+Streams no Java são uma poderosa ferramenta para manipulação de coleções de dados. As operações intermediárias permitem filtrar, mapear e ordenar os elementos da stream, enquanto as operações finais encerram a stream e retornam um resultado concreto. Combinando essas operações, podemos realizar transformações e ações de forma concisa e eficiente.

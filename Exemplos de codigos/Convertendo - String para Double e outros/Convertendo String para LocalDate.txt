@@ -1,0 +1,3 @@
+        this.dataLancamento = LocalDate.parse(dadosEpisodios.dataLancamento());
+
+Aqui ele espera que o dataLancamento venha no formato: ISO LOCAL DATE = "2007-12-03"

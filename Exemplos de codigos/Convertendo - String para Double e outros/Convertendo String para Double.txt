@@ -1,0 +1,5 @@
+        this.avaliacao = Double.valueOf(dadosEpisodios.avaliacao());
+
+
+Observe o Double.valueOf 
+Aqui ele vai tentar trazer uma String e ler em formato Double.

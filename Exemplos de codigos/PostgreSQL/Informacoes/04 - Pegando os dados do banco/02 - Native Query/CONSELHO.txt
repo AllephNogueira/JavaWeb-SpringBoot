@@ -1,0 +1,1 @@
+Se você sabe que tem certeza que vai trabalhar com aquele banco e não vai mudar, você pode usar essa opcao

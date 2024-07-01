@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Encontrando nomes:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Encontrando_nomes_jar</output-path>
+    <root id="archive" name="Encontrando nomes.jar">
+      <element id="module-output" name="Encontrando nomes" />
+    </root>
+  </artifact>
+</component>

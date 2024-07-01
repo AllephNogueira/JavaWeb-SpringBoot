@@ -1,0 +1,1 @@
+Ele tem menos código, como você pode ver, mas isso torna o código um pouco mais difícil de ler.
