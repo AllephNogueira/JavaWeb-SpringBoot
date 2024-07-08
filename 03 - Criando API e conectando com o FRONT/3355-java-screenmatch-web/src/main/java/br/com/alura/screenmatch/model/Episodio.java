@@ -1,5 +1,6 @@
 package br.com.alura.screenmatch.model;
 
+import br.com.alura.screenmatch.service.traducao.ConsultaMyMemory;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ManyToAny;
 
@@ -10,12 +11,14 @@ import java.time.format.DateTimeParseException;
 @Table (name = "episodios")
 public class Episodio {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
     private Integer temporada;
+
     private String titulo;
     private Integer numeroEpisodio;
     private Double avaliacao;
@@ -26,7 +29,7 @@ public class Episodio {
 
     public Episodio(Integer numeroTemporada, DadosEpisodio dadosEpisodio) {
         this.temporada = numeroTemporada;
-        this.titulo = dadosEpisodio.titulo();
+        this.titulo = ConsultaMyMemory.obterTraducao(dadosEpisodio.titulo()).trim();
         this.numeroEpisodio = dadosEpisodio.numero();
 
         try {

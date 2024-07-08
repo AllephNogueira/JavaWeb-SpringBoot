@@ -1,5 +1,6 @@
 package br.com.alura.screenmatch.model;
 
+import br.com.alura.screenmatch.service.traducao.ConsultaMyMemory;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ManyToAny;
 
@@ -26,7 +27,7 @@ public class Episodio {
 
     public Episodio(Integer numeroTemporada, DadosEpisodio dadosEpisodio) {
         this.temporada = numeroTemporada;
-        this.titulo = dadosEpisodio.titulo();
+        this.titulo = ConsultaMyMemory.obterTraducao(dadosEpisodio.titulo()).trim();
         this.numeroEpisodio = dadosEpisodio.numero();
 
         try {
