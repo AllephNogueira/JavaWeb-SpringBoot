@@ -1,7 +1,6 @@
 package com.allephnogueira.api.controller;
 
 
-import com.allephnogueira.api.endereco.Endereco;
 import com.allephnogueira.api.medico.DadosCadastroMedicos;
 import com.allephnogueira.api.medico.DadosListagemMedico;
 import com.allephnogueira.api.medico.Medico;
@@ -11,12 +10,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController // Estou dizendo que essa classe é um controller.
 @RequestMapping("medicos") // Sempre quando chegar uma requisição para medicos o spring vai entender que é para chamar essa classe
@@ -38,7 +33,7 @@ public class MedicoController {
 
     @GetMapping()
     // Tipo de dados que vamos retornar vai ser List<>
-    public Page<DadosListagemMedico> listaDeMedicos(Pageable paginacao) {
+    public Page<DadosListagemMedico> listaDeMedicos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         return repository.findAll(paginacao).map(DadosListagemMedico::new);
         // Observa que não precisa mais do stream(coleção de dados) o proprio page ja faz isso, e também apos o map ele também converte.
         // Lembrar de continuar fazendo o map, porque o repositorio vai devolver os dados de MEDICO e para segurança vamos querer transferir isso para um DTO e devolver o DTO.
