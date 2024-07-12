@@ -1,0 +1,1 @@
+Nesse curso fizemos o famoso CRUD com o MYSQL
