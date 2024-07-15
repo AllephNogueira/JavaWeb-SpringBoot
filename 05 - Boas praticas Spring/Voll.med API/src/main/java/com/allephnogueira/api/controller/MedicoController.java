@@ -108,4 +108,14 @@ public class MedicoController {
         // Agora vai retornar o 204 no Content quer dizer que foi prcessado com sucesso e nao tem conteudo na resposta.
     }
 
+
+    @GetMapping("/{id}")
+    public ResponseEntity detalhar(@PathVariable Long id) {
+        var medico = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
+
+    }
+
+
+
 }

@@ -2,15 +2,18 @@ package com.allephnogueira.api.controller;
 
 
 import com.allephnogueira.api.paciente.DadosCadastroPaciente;
+import com.allephnogueira.api.paciente.DadosListagemPaciente;
 import com.allephnogueira.api.paciente.Paciente;
 import com.allephnogueira.api.paciente.PacienteRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping ("pacientes")
@@ -19,10 +22,21 @@ public class PacienteController {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    // Cadastro de paciente retornando o ResponseEntity
+
     @PostMapping
     @Transactional
-    public void cadastra (@RequestBody @Valid DadosCadastroPaciente dados) {
-        // Vamos criar um novo objeto Paciente, passando os DTO *****DADOS como se fosse no argumentos.
-        pacienteRepository.save(new Paciente(dados));
+    public ResponseEntity cadastro(@RequestBody @Valid DadosCadastroPaciente dados, UriComponentsBuilder uriBuilder) {
+        var paciente = new Paciente(dados);
+        pacienteRepository.save(paciente);
+
+        var uri = uriBuilder.path("pacientes/{id}").buildAndExpand(paciente.getId()).toUri();
+        return ResponseEntity.created(uri).body(paciente);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<DadosListagemPaciente>> listar(@PageableDefault(sort = {"nome"}) Pageable pageable) {
+        var page = pacienteRepository.findAll(pageable).map(DadosListagemPaciente::new);
+        return ResponseEntity.ok(page);
     }
 }
