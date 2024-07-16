@@ -1,7 +1,7 @@
 package com.allephnogueira.api.controller;
 
 
-import com.allephnogueira.api.medico.*;
+import com.allephnogueira.api.domain.medico.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +11,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController // Estou dizendo que essa classe é um controller.
 @RequestMapping("medicos") // Sempre quando chegar uma requisição para medicos o spring vai entender que é para chamar essa classe

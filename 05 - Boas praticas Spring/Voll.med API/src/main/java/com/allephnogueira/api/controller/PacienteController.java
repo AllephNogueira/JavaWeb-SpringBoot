@@ -1,10 +1,10 @@
 package com.allephnogueira.api.controller;
 
 
-import com.allephnogueira.api.paciente.DadosCadastroPaciente;
-import com.allephnogueira.api.paciente.DadosListagemPaciente;
-import com.allephnogueira.api.paciente.Paciente;
-import com.allephnogueira.api.paciente.PacienteRepository;
+import com.allephnogueira.api.domain.paciente.DadosListagemPaciente;
+import com.allephnogueira.api.domain.paciente.Paciente;
+import com.allephnogueira.api.domain.paciente.PacienteRepository;
+import com.allephnogueira.api.domain.paciente.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +38,24 @@ public class PacienteController {
     public ResponseEntity<Page<DadosListagemPaciente>> listar(@PageableDefault(sort = {"nome"}) Pageable pageable) {
         var page = pacienteRepository.findAll(pageable).map(DadosListagemPaciente::new);
         return ResponseEntity.ok(page);
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizar (@RequestBody @Valid DadosAtualizacaoPaciente dados) {
+        var paciente = pacienteRepository.getReferenceById(dados.id());
+        paciente.atualizarInformacoes(dados);
+
+        return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
+
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity deletarPaciente (@RequestBody @Valid Long id) {
+        var paciente = pacienteRepository.getReferenceById(id);
+        paciente.excluir();
+
+        return ResponseEntity.noContent().build();
     }
 }
